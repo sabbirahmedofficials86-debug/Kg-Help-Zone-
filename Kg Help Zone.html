@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<title>Kg Help Zone</title>
+<style>
+body { font-family:sans-serif; background:#ffffff; margin:0; padding:0; }
+.header { background:#2e7d32; color:white; padding:20px; text-align:center; }
+.section { margin:15px; padding:15px; background:white; border-radius:8px; border:1px solid #e0e0e0; }
+.donor { padding:8px; border-bottom:1px solid #ddd; display:flex; align-items:center; transition: transform 0.2s; }
+.donor:hover { transform: scale(1.02); }
+.donor img { width:50px; height:50px; border-radius:50%; margin-right:10px; object-fit:cover; }
+#developer { position: fixed; bottom: 15px; right: 15px; background: linear-gradient(135deg, #4caf50, #81c784); padding: 8px 12px; border-radius: 50px; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); font-size: 12px; color: white; font-weight: bold; cursor: pointer; }
+#developer img { width:28px; height:28px; border-radius:50%; border:2px solid white; object-fit:cover; }
+#developer span { white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Kg Help Zone</h1>
+</div>
+
+<div class="section">
+  <h2>ডোনার তালিকা — কিশোরগঞ্জ সদর</h2>
+  <div id="donorList"></div>
+</div>
+
+<div id="developer">
+  <img src="https://i.postimg.cc/Pf7db1Dr/sa.jpg" alt="SABBIR AHMED">
+  <span>Developed By <strong>SABBIR AHMED</strong></span>
+</div>
+
+<script>
+fetch('donors.json')
+.then(response => response.json())
+.then(data => {
+  const donorList = document.getElementById('donorList');
+  data.forEach((d,i) => {
+    const div = document.createElement('div');
+    div.className = 'donor';
+    div.innerHTML = `
+      <img src="${d.photo}" alt="ডোনার ছবি">
+      <div>${i+1}. ${d.name} — ${d.blood} — <a href="tel:${d.phone}">${d.phone}</a></div>
+    `;
+    donorList.appendChild(div);
+  });
+});
+</script>
+
+</body>
+</html>
